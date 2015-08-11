@@ -43,12 +43,11 @@ imageUrl = downloader.getImageUrl()
 
 downloader.downloadImage(imageUrl)
 
+replPath = (os.getcwd() + "/wallpaper.png").replace('/', ':')[1:]
 
-currentWorkingDirectory = os.getcwd()
-
-pathToWallpaper = currentWorkingDirectory + "/wallpaper.png"
+commandToChange = "set the desktop picture to {\"%s\"} as alias" % (replPath)
 
 subprocess.call(["osascript", "-e", "tell app \"Finder\"", "-e", 
-	"set the desktop picture to {\"Macintosh HD:Users:achmudas:Documents:Projects:BingWallpaperOfTheDay:wallpaper.png\"} as alias", "-e", "end tell"])
+	commandToChange, "-e", "end tell"])
 
 
