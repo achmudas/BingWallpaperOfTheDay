@@ -3,6 +3,7 @@ import urllib2
 import json
 import subprocess
 import os
+from sys import platform as _platform
 
 
 class Downloader:
@@ -43,11 +44,13 @@ imageUrl = downloader.getImageUrl()
 
 downloader.downloadImage(imageUrl)
 
-replPath = (os.getcwd() + "/wallpaper.png").replace('/', ':')[1:]
-
-commandToChange = "set the desktop picture to {\"%s\"} as alias" % (replPath)
-
-subprocess.call(["osascript", "-e", "tell app \"Finder\"", "-e", 
-	commandToChange, "-e", "end tell"])
-
-
+if _platform == "darwin":
+	replPath = (os.getcwd() + "/wallpaper.png").replace('/', ':')[1:]
+	commandToChange = "set the desktop picture to {\"%s\"} as alias" % (replPath)
+	subprocess.call(["osascript", "-e", "tell app \"Finder\"", "-e", commandToChange, "-e", "end tell"])
+elif _platform == "win32":
+	print "Windows implementation"
+#TODO make implementation for Windows
+elif _platform == "linux" or _platform == "linux2":
+	print "Linux implementation"
+	#TODO make implementation for Linux
