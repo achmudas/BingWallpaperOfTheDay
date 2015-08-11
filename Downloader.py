@@ -2,7 +2,6 @@
 import urllib2
 import json
 import subprocess
-import sqlite3
 import os
 
 
@@ -48,15 +47,8 @@ downloader.downloadImage(imageUrl)
 currentWorkingDirectory = os.getcwd()
 
 pathToWallpaper = currentWorkingDirectory + "/wallpaper.png"
-updateStatement = "update data set value='%s'" % (pathToWallpaper)
 
-databasePath = "/Users/%s/Library/Application Support/Dock/desktoppicture.db" % (os.getlogin())
-
-conn = sqlite3.connect(databasePath)
-conn.execute(updateStatement)
-conn.commit()
-conn.close()
-
-subprocess.call(["killall", "Dock"])
+subprocess.call(["osascript", "-e", "tell app \"Finder\"", "-e", 
+	"set the desktop picture to {\"Macintosh HD:Users:achmudas:Documents:Projects:BingWallpaperOfTheDay:wallpaper.png\"} as alias", "-e", "end tell"])
 
 
