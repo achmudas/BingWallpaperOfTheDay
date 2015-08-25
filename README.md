@@ -15,7 +15,7 @@ Current desktop image can be found in working directory:
 * if it's triggered by crontab - /Users/`current_user`/bing
 * if manualy - ./bing
 
-To download and change desktop background manualy, please execute following commands:
+To download and change desktop background manually, please execute following commands:
 ```
 python ./Downloader.py
 ```
