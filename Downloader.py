@@ -48,14 +48,5 @@ downloader.downloadImage(imageUrl)
 if _platform == "darwin":
 	replPath = (os.getcwd() + "/wallpaper.png").replace('/', ':')[1:]
 	commandToChange = "set the desktop picture to {\"%s\"} as alias" % (replPath)
-	print "CommandToChange: " + commandToChange
 	subprocess.call(["osascript", "-e", "tell app \"Finder\"", "-e", commandToChange, "-e", "end tell"])
 	print "Wallpaper is set."
-elif _platform == "win32":
-	print "Windows implementation"
-	print "Wallpaper is set."
-#TODO make implementation for Windows
-elif _platform == "linux" or _platform == "linux2":
-	print "Linux implementation"
-	print "Wallpaper is set."
-	#TODO make implementation for Linux
