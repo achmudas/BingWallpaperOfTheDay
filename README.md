@@ -20,4 +20,4 @@ To download and change desktop background manualy, please execute following comm
 python ./Downloader.py
 ```
 
-If something goes wrong, please check logs in **/tmp/bing.log**
+If something goes wrong, please check logs in `/tmp/bing.log`
