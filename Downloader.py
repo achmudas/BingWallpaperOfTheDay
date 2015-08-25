@@ -4,6 +4,8 @@ import json
 import subprocess
 import os
 from sys import platform as _platform
+from datetime import datetime
+import shutil
 
 
 class Downloader:
@@ -23,7 +25,7 @@ class Downloader:
 			jsonDoc = json.loads(jsonResponse)
 			return jsonDoc["images"][0]['url']
 
-	def downloadImage(self, imageUrl):
+	def downloadImage(self, imageUrl, fileName):
 		try:
 			response = urllib2.urlopen("http://www.bing.com" + imageUrl)
 		except urllib2.URLError as e:
@@ -35,18 +37,25 @@ class Downloader:
 				print 'Error code: ', e.code
 		else:
 			image = response.read()
-			imageFile = open('wallpaper.png', 'w')
+			imageFile = open(fileName, 'w+b')
 			imageFile.write(image)
 
+
+
+if os.path.exists(os.getcwd() + '/bing'):
+	shutil.rmtree(os.getcwd() + '/bing')
+
+os.mkdir('bing')
 
 downloader = Downloader()
 
 print "Starting to download Bing wallpaper."
 imageUrl = downloader.getImageUrl()
-downloader.downloadImage(imageUrl)
+fileName = 'bing/wallpaper_' + datetime.now().strftime("%Y_%M_%d_%H_%M") + '.png'
+downloader.downloadImage(imageUrl, fileName)
 
 if _platform == "darwin":
-	replPath = (os.getcwd() + "/wallpaper.png").replace('/', ':')[1:]
+	replPath = (os.getcwd() + '/' + fileName).replace('/', ':')[1:]
 	commandToChange = "set the desktop picture to {\"%s\"} as alias" % (replPath)
 	subprocess.call(["osascript", "-e", "tell app \"Finder\"", "-e", commandToChange, "-e", "end tell"])
 	print "Wallpaper is set."
